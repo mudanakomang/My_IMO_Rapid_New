@@ -29,6 +29,16 @@ workflows:
           cd "$CM_BUILD_DIR"
           npm install --legacy-peer-deps  # or yarn install
 
+      - name: Ensure React Native CLI Works
+        script: |
+          cd "$CM_BUILD_DIR"
+          npx react-native --version
+
+      - name: Run React Native Autolink
+        script: |
+          cd "$CM_BUILD_DIR"
+          npx react-native autolink && npx react-native config
+
       - name: Generate React Native Config
         script: |
           cd "$CM_BUILD_DIR"

@@ -5,8 +5,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "eject": "expo eject",
-    "postinstall": "npx react-native autolink && npx react-native config"
+    "eject": "expo eject"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.26.9",
