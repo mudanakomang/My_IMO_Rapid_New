@@ -6,14 +6,14 @@ workflows:
 
     environment:
       android_signing:
-        - keystore: "imd.jks"
+        - keystore: "myimo_keystore.jks"
           keystore_password_environment_variable: "$CM_KEYSTORE_PASSWORD"
           key_alias_environment_variable: "$CM_KEY_ALIAS"
           key_password_environment_variable: "$CM_KEY_PASSWORD"
 
       vars:
         PACKAGE_NAME: "com.imouser.myapp"
-        CM_KEYSTORE_PATH: "$CM_BUILD_DIR/imd.jks"
+        CM_KEYSTORE_PATH: "$CM_BUILD_DIR/myimo_keystore.jks"
         GRADLE_OPTS: "-Dorg.gradle.wrapper.verification.ignore=true"
         GRADLE_VERSION: "8.11.1"
 
