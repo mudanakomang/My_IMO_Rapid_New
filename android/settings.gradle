@@ -3,9 +3,9 @@ pluginManagement {
         google()
         mavenCentral()
     }
-    includeBuild("../node_modules/react-native/packages/gradle-plugin/react-native-gradle-plugin")
+    includeBuild("../node_modules/@react-native/gradle-plugin")
 }
-
+includeBuild("../node_modules/@react-native/gradle-plugin")
 rootProject.name = 'My_IMO_Rapid'
 include ':app'
 
