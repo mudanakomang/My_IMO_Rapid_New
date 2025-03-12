@@ -1,0 +1,71 @@
+workflows:
+  react-native-android:
+    name: React Native Android
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+
+    environment:
+      android_signing:
+        - keystore: "imd.jks"
+          keystore_password_environment_variable: "$CM_KEYSTORE_PASSWORD"
+          key_alias_environment_variable: "$CM_KEY_ALIAS"
+          key_password_environment_variable: "$CM_KEY_PASSWORD"
+
+      vars:
+        PACKAGE_NAME: "com.imouser.myapp"
+        CM_KEYSTORE_PATH: "$CM_BUILD_DIR/imd.jks"
+        GRADLE_OPTS: "-Dorg.gradle.wrapper.verification.ignore=true"
+        GRADLE_VERSION: "8.11.1"
+
+    cache:
+      cache_paths:
+        - node_modules
+        - $HOME/.gradle/caches
+        - $HOME/.gradle/wrapper
+
+    scripts:
+      - name: Install Node.js dependencies
+        script: |
+          cd "$CM_BUILD_DIR"
+          npm install --legacy-peer-deps  # or yarn install
+
+      - name: Generate React Native Config
+        script: |
+          cd "$CM_BUILD_DIR"
+          node generateConfig.js  # Runs the fixed config script
+
+      - name: Ensure Gradle finds `@react-native/gradle-plugin`
+        script: |
+          cd "$CM_BUILD_DIR"
+          npx react-native config
+
+      - name: Set Android SDK location
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
+
+      - name: Uninstall Fingerprint Scanner (if exists)
+        script: |
+          npm uninstall react-native-fingerprint-scanner || true
+
+      - name: Decode and Set Up Keystore
+        script: |
+          echo "$CM_KEYSTORE" | base64 --decode > "$CM_KEYSTORE_PATH"
+
+      - name: Set Execute Permissions for Gradlew
+        script: |
+          chmod +x "$CM_BUILD_DIR/android/gradlew"
+
+      - name: Clean previous builds
+        script: |
+          cd "$CM_BUILD_DIR/android"
+          ./gradlew clean
+
+      - name: Build Android release (AAB and APK)
+        script: |
+          cd "$CM_BUILD_DIR/android"
+          ./gradlew --no-daemon assembleRelease
+          ./gradlew --no-daemon bundleRelease
+
+    artifacts:
+      - android/app/build/outputs/**/*.aab
+      - android/app/build/outputs/apk/release/*.apk

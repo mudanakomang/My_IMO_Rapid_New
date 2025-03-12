@@ -1,0 +1,119 @@
+apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
+apply plugin: "com.facebook.react"
+apply plugin: "com.google.gms.google-services"
+
+project.ext.react = [
+    entryFile: "index.js",
+    reactNativeDir: "$rootDir/../node_modules/react-native",
+    enableHermes: true,
+    enableReanimated: true
+]
+
+static def versionToNumber(major, minor, patch) {
+    return patch * 100 + minor * 10000 + major * 1000000
+}
+
+def getRNVersion() {
+    def version = providers.exec {
+        workingDir(projectDir)
+        commandLine("node", "-e", "console.log(require('react-native/package.json').version);")
+    }.standardOutput.asText.get().trim()
+
+    def coreVersion = version.split("-")[0]
+    def (major, minor, patch) = coreVersion.tokenize('.').collect { it.toInteger() }
+
+    return versionToNumber(major, minor, patch)
+}
+
+def rnVersion = getRNVersion()
+
+android {
+    compileSdkVersion 35 
+
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    ndkVersion rootProject.ext.ndkVersion
+
+    namespace "com.imouser.myapp"
+
+    defaultConfig {
+        applicationId "com.imouser.myapp"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    signingConfigs {
+        release {
+            if (System.getenv("CM_KEYSTORE_PATH")) { 
+                storeFile file(System.getenv("CM_KEYSTORE_PATH"))
+                storePassword System.getenv("CM_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("CM_KEY_ALIAS")
+                keyPassword System.getenv("CM_KEY_PASSWORD")
+            } else {
+                println "Warning: Keystore path is missing!"
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.release
+            shrinkResources false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            crunchPngs true
+        }
+    }
+
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging false
+        }
+    }
+}
+
+dependencies {
+    implementation "com.facebook.react:react-android"
+    implementation "com.facebook.react:hermes-android"
+    
+      //  implementation 'com.eightyeight:FingerprintIdentify:1.2.3'
+    // implementation project(':react-native-fingerprint-scanner')
+
+
+}
+
+react {
+    autolinkLibrariesWithApp()
+
+
+    def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true"
+    def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true"
+    def isWebpAnimatedEnabled = (findProperty('expo.webp.animated') ?: "") == "true"
+
+    if (isGifEnabled) {
+        implementation("com.facebook.fresco:animated-gif:${reactAndroidLibs.versions.fresco.get()}")
+        implementation 'com.google.firebase:firebase-analytics:21.2.0'   
+        implementation 'com.google.firebase:firebase-auth:21.2.0'
+    }
+    if (isWebpEnabled) {
+        implementation("com.facebook.fresco:webpsupport:${reactAndroidLibs.versions.fresco.get()}")
+        if (isWebpAnimatedEnabled) {
+            implementation("com.facebook.fresco:animated-webp:${reactAndroidLibs.versions.fresco.get()}")
+        }
+    }
+
+ 
+}
+
+if (rnVersion >= versionToNumber(0, 75, 0)) {
+react {
+    autolinkLibrariesWithApp()
+    
+ 
+    }
+}

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "981087146643",
+    "project_id": "imo-rapid",
+    "storage_bucket": "imo-rapid.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981087146643:android:389b4b1e499260a74e7366",
+        "android_client_info": {
+          "package_name": "com.imouser.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtZ3wYkgYlPWJuVgBQiZoeOURpaALpsSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981087146643:android:6cb2ba60bc7ce3574e7366",
+        "android_client_info": {
+          "package_name": "com.imouser.myapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtZ3wYkgYlPWJuVgBQiZoeOURpaALpsSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

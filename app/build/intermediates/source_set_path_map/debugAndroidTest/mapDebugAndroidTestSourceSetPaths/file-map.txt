@@ -1,0 +1,6 @@
+com.imortusers.myimo.test.app-tracing-1.2.0-0 C:\Users\DELL\.gradle\caches\8.9\transforms\b9a7f188be2130bb3087fe7c6b3698b8\transformed\tracing-1.2.0\res
+com.imortusers.myimo.test.app-core-1.6.1-1 C:\Users\DELL\.gradle\caches\8.9\transforms\c5ccf1aa6cb47a03c9148fd8c1ce2ba3\transformed\core-1.6.1\res
+com.imortusers.myimo.test.app-androidTest-2 C:\Users\DELL\Desktop\My_IMO_Rapid\app\build\generated\res\resValues\androidTest\debug
+com.imortusers.myimo.test.app-mergeDebugAndroidTestResources-3 C:\Users\DELL\Desktop\My_IMO_Rapid\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.imortusers.myimo.test.app-mergeDebugAndroidTestResources-4 C:\Users\DELL\Desktop\My_IMO_Rapid\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.imortusers.myimo.test.app-debugAndroidTest-5 C:\Users\DELL\Desktop\My_IMO_Rapid\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
