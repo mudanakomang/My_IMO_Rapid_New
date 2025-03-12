@@ -33,13 +33,6 @@ workflows:
         script: |
           cd "$CM_BUILD_DIR"
           npm install --legacy-peer-deps  # or yarn install
-          ls -l node_modules/@react-native-community/cli-platform-android/native_modules.gradle
-
-      - name: Ensure `@react-native-community/cli-platform-android` is installed
-        script: |
-          cd "$CM_BUILD_DIR"
-          npm install @react-native-community/cli-platform-android --legacy-peer-deps
-
 
       # - name: Run React Native Autolink
       #   script: |
