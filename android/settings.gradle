@@ -1,3 +1,4 @@
+// Configures the React Native Gradle Settings plugin used for autolinking
 pluginManagement {
     repositories {
         google()
@@ -5,9 +6,14 @@ pluginManagement {
     }
     includeBuild("../node_modules/@react-native/gradle-plugin")
 }
-includeBuild("../node_modules/@react-native/gradle-plugin")
-rootProject.name = 'My_IMO_Rapid'
-include ':app'
 
-// apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
-// applyNativeModulesSettingsGradle(settings)
+plugins {
+    id("com.facebook.react.settings")
+}
+
+extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
+    ex.autolinkLibrariesFromCommand()
+}
+
+rootProject.name = "My_IMO_Rapid"
+include(":app")
