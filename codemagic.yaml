@@ -35,6 +35,10 @@ workflows:
           npm install --legacy-peer-deps  # or yarn install
           ls node_modules/@react-native/
 
+      - name: Ensure Gradle finds `@react-native/gradle-plugin`
+        script: |
+          cd "$CM_BUILD_DIR"
+          ls node_modules/@react-native/gradle-plugin
       # - name: Run React Native Autolink
       #   script: |
       #     cd "$CM_BUILD_DIR"
